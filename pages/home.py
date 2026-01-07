@@ -1,0 +1,21 @@
+import streamlit as st
+
+
+st.title("Welcome to HoYoWiki-Exchange!")
+
+st.markdown("""
+    Here you will be able to select items for our exchange event and manage your order, all in one place!
+
+    All the necessary tools can be accessed from the sidebar at the left of this page.
+""")
+
+with st.expander("Browser Compatibility :material/warning:", width = "stretch"):
+    st.markdown("""
+        One of this program's components only guarantees support for recent versions of the following web browsers:
+        * Google Chrome
+        * Firefox
+        * Microsoft Edge
+        * Safari
+
+        Compatibility with unsupported browsers or old versions of the above browsers is not guaranteed.
+""")
