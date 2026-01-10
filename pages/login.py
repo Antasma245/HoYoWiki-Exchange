@@ -1,6 +1,5 @@
 import streamlit as st
 import requests
-import time
 import urllib.parse
 
 
@@ -30,9 +29,11 @@ auth_url = (
     )
 )
 
-st.link_button("Authenticate with Discord", auth_url, type = "primary", icon = ":material/open_in_new:")
+is_authenticating = True if "code" in st.query_params else False
 
-if "code" in st.query_params:
+st.link_button("Authenticate with Discord", auth_url, type = "primary", icon = ":material/open_in_new:", disabled = is_authenticating)
+
+if is_authenticating:
     st.toast("Verifying identity...", icon = ":material/frame_person:")
 
     authorization_code = st.query_params["code"]
@@ -83,13 +84,8 @@ if "code" in st.query_params:
 
     if in_wiki_guild:
         st.session_state["user_id"] = res_user_json["id"]
-
-        user_alias = res_user_json["global_name"] or res_user_json["username"]
-
-        st.success("Authentication successful. Logging you in as **%s**..." % user_alias, icon = ":material/person_check:")
+        st.session_state["user_name"] = res_user_json["username"]
         
-        time.sleep(5)
-
         st.rerun()
     else:
         st.error("Authentication failed. You must be part of the HoYoWiki collaborator server to use this app.", icon = ":material/person_cancel:")

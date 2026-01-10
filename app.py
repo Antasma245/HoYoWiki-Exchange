@@ -13,13 +13,13 @@ home = st.Page(
 
 login = st.Page(
     "pages/login.py",
-    title = "Log in",
+    title = "Log In",
     icon = ":material/login:"
 )
 
 logout = st.Page(
     "pages/logout.py",
-    title = "Log out",
+    title = "Log Out",
     icon = ":material/logout:"
 )
 
@@ -32,7 +32,7 @@ inventory = st.Page(
 order = st.Page(
     "pages/order.py",
     title = "My Order",
-    icon = ":material/orders:"
+    icon = ":material/shopping_cart:"
 )
 
 delivery = st.Page(
