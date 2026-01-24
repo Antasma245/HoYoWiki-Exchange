@@ -37,6 +37,7 @@ if is_authenticating:
     st.toast("Verifying identity...", icon = ":material/frame_person:")
 
     authorization_code = st.query_params["code"]
+    st.query_params.clear()
 
     request_data = {
         "grant_type": "authorization_code",
@@ -83,8 +84,8 @@ if is_authenticating:
     in_wiki_guild = any(guild["id"] == st.secrets.discord["wiki_guild_id"] for guild in res_guilds_json)
 
     if in_wiki_guild:
-        st.session_state["user_id"] = res_user_json["id"]
-        st.session_state["user_name"] = res_user_json["username"]
+        st.session_state["discord_id"] = res_user_json["id"]
+        st.session_state["discord_name"] = res_user_json["username"]
         
         st.rerun()
     else:
