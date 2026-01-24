@@ -20,8 +20,8 @@ with st.expander("Browser Compatibility :material/warning:", width = "stretch"):
         Compatibility with unsupported browsers or old versions of the above browsers is not guaranteed.
     """)
 
-if st.session_state["user_id"]:
+if st.session_state["discord_id"]:
     st.success(
-        "Successfully logged in as **%s**. You may now close the other Streamlit tab in your web browser." % st.session_state["user_name"],
+        "Successfully logged in as **%s**. You may now close the other Streamlit tab in your web browser." % st.session_state["discord_name"],
         icon = ":material/person_check:"
     )
