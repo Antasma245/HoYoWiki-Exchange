@@ -65,13 +65,15 @@ st.divider()
 conn = st.connection("neon", type = "sql")
 
 items_df = conn.query("""
-    SELECT
-        i.*,
-        COUNT(oi.item_id) AS interested_users
-    FROM items i
-    LEFT JOIN order_items oi ON oi.item_id = i.id
-    GROUP BY i.id;
-""")
+        SELECT
+            i.*,
+            COUNT(oi.item_id) AS interested_users
+        FROM items i
+        LEFT JOIN order_items oi ON oi.item_id = i.id
+        GROUP BY i.id;
+    """,
+    ttl = 600
+)
 
 gi_tab, hi3_tab, hsr_tab, zzz_tab = st.tabs(["Genshin Impact", "Honkai Impact 3rd", "Honkai Star Rail", "Zenless Zone Zero"])
 
