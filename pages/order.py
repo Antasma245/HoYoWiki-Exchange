@@ -3,6 +3,12 @@ from sqlalchemy import text
 import pandas as pd
 
 
+if "hoyolab_id" not in st.session_state:
+    st.session_state["hoyolab_id"] = None
+
+if "comment" not in st.session_state:
+    st.session_state["comment"] = None
+
 st.title("My Order")
 
 st.markdown("Enter your personal details, review your order and register it.")
@@ -27,9 +33,19 @@ user_details_df = conn.query("""
     }
 )
 
-hoyolab_id = st.text_input("Your HoYoLAB ID (required)", value = user_details_df.at[0, "hoyolab_id"] if not user_details_df.empty else None)
+hoyolab_id = st.text_input("Your HoYoLAB ID (required)", value = st.session_state["hoyolab_id"])
 
-comment = st.text_area("Anything to add?", user_details_df.at[0, "comment"] if not user_details_df.empty else None)
+if hoyolab_id:
+    st.session_state["hoyolab_id"] = hoyolab_id
+elif not user_details_df.empty:
+    st.session_state["hoyolab_id"] = user_details_df.at[0, "hoyolab_id"]
+
+comment = st.text_area("Anything to add?", value = st.session_state["comment"])
+
+if comment:
+    st.session_state["comment"] = comment
+elif not user_details_df.empty:
+    st.session_state["comment"] = user_details_df.at[0, "comment"]
 
 st.subheader("Wishlist")
 
