@@ -1,6 +1,6 @@
 import streamlit as st
 
 
-st.session_state["discord_id"] = None
+st.session_state.clear()
 
 st.rerun()

@@ -76,6 +76,7 @@ if st.session_state["discord_id"]:
                 JOIN items i ON i.id = oi.item_id
                 WHERE o.discord_id = :discord_id;
             """,
+            ttl = 0,
             params = {
                 "discord_id": st.session_state["discord_id"]
             }

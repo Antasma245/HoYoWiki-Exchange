@@ -28,10 +28,11 @@ user_details_df = conn.query("""
     FROM orders
     WHERE discord_id = :discord_id;
     """,
+    ttl = 0,
     params = {
         "discord_id": st.session_state["discord_id"]
     }
-)
+) if not st.session_state["hoyolab_id"] else pd.DataFrame()
 
 hoyolab_id = st.text_input("Your HoYoLAB ID (required)", value = st.session_state["hoyolab_id"])
 
@@ -71,6 +72,7 @@ balance = 0
 if hoyolab_id:
     user_balance_df = conn.query(
         "SELECT balance FROM users WHERE hoyolab_id = :hoyolab_id;",
+        ttl = 600,
         params = {
             "hoyolab_id": hoyolab_id
         }
