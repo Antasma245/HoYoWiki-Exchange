@@ -78,21 +78,41 @@ items_df = conn.query("""
 gi_tab, hi3_tab, hsr_tab, zzz_tab = st.tabs(["Genshin Impact", "Honkai Impact 3rd", "Honkai Star Rail", "Zenless Zone Zero"])
 
 with gi_tab:
-    gi_items = items_df[items_df["category"] == "GI"].sort_values(by = "id")
+    gi_items = items_df[items_df["category"] == "GI"]
 
-    build_item_selector(gi_items)
+    gi_items_sorted = gi_items.sort_values(
+        by = "id",
+        key = lambda id_series: id_series.str.extract(r"(\d+)").astype(int)[0]
+    )
+
+    build_item_selector(gi_items_sorted)
 
 with hi3_tab:
-    hi3_items = items_df[items_df["category"] == "HI3"].sort_values(by = "id")
+    hi3_items = items_df[items_df["category"] == "HI3"]
 
-    build_item_selector(hi3_items)
+    hi3_items_sorted = hi3_items.sort_values(
+        by = "id",
+        key = lambda id_series: id_series.str.extract(r"(\d+)").astype(int)[0]
+    )
+
+    build_item_selector(hi3_items_sorted)
 
 with hsr_tab:
-    hsr_items = items_df[items_df["category"] == "HSR"].sort_values(by = "id")
+    hsr_items = items_df[items_df["category"] == "HSR"]
 
-    build_item_selector(hsr_items)
+    hsr_items_sorted = hsr_items.sort_values(
+        by = "id",
+        key = lambda id_series: id_series.str.extract(r"(\d+)").astype(int)[0]
+    )
+
+    build_item_selector(hsr_items_sorted)
 
 with zzz_tab:
-    zzz_items = items_df[items_df["category"] == "ZZZ"].sort_values(by = "id")
+    zzz_items = items_df[items_df["category"] == "ZZZ"]
 
-    build_item_selector(zzz_items)
+    zzz_items_sorted = zzz_items.sort_values(
+        by = "id",
+        key = lambda id_series: id_series.str.extract(r"(\d+)").astype(int)[0]
+    )
+
+    build_item_selector(zzz_items_sorted)
