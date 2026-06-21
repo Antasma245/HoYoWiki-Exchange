@@ -18,10 +18,11 @@ get_gdrive_image = st.session_state["get_image_func"]
 def build_item_selector(items: pd.DataFrame) -> None:
     item_columns = st.columns(4, vertical_alignment = "bottom")
 
-    column_index = 0
+    for position, (_, item) in enumerate(items.iterrows()):
+        if position % 4 == 0 and position > 0:
+            item_columns = st.columns(4, vertical_alignment = "bottom")
 
-    for _, item in items.iterrows():
-        with item_columns[column_index]:
+        with item_columns[position % 4]:
             image_id = extract_drive_id(item["image_url"])
             image_bytes = get_gdrive_image(image_id)
 
@@ -49,12 +50,6 @@ def build_item_selector(items: pd.DataFrame) -> None:
 
             st.space("small")
 
-        if column_index < 3:
-            column_index += 1
-        else:
-            column_index = 0
-            item_columns = st.columns(4, vertical_alignment = "bottom")
-
 
 st.title("Inventory")
 
@@ -75,44 +70,22 @@ items_df = conn.query("""
     ttl = 600
 )
 
-gi_tab, hi3_tab, hsr_tab, zzz_tab = st.tabs(["Genshin Impact", "Honkai Impact 3rd", "Honkai Star Rail", "Zenless Zone Zero"])
+categories = {
+    "Genshin Impact": "GI",
+    "Honkai Impact 3rd": "HI3",
+    "Honkai Star Rail": "HSR",
+    "Zenless Zone Zero": "ZZZ"
+}
 
-with gi_tab:
-    gi_items = items_df[items_df["category"] == "GI"]
+tabs = st.tabs(list(categories.keys()))
 
-    gi_items_sorted = gi_items.sort_values(
-        by = "id",
-        key = lambda id_series: id_series.str.extract(r"(\d+)").astype(int)[0]
-    )
+for tab, category in zip(tabs, categories.values()):
+    with tab:
+        category_items = items_df[items_df["category"] == category]
 
-    build_item_selector(gi_items_sorted)
+        category_items_sorted = category_items.sort_values(
+            by = "id",
+            key = lambda id_series: id_series.str.extract(r"(\d+)").astype(int)[0]
+        )
 
-with hi3_tab:
-    hi3_items = items_df[items_df["category"] == "HI3"]
-
-    hi3_items_sorted = hi3_items.sort_values(
-        by = "id",
-        key = lambda id_series: id_series.str.extract(r"(\d+)").astype(int)[0]
-    )
-
-    build_item_selector(hi3_items_sorted)
-
-with hsr_tab:
-    hsr_items = items_df[items_df["category"] == "HSR"]
-
-    hsr_items_sorted = hsr_items.sort_values(
-        by = "id",
-        key = lambda id_series: id_series.str.extract(r"(\d+)").astype(int)[0]
-    )
-
-    build_item_selector(hsr_items_sorted)
-
-with zzz_tab:
-    zzz_items = items_df[items_df["category"] == "ZZZ"]
-
-    zzz_items_sorted = zzz_items.sort_values(
-        by = "id",
-        key = lambda id_series: id_series.str.extract(r"(\d+)").astype(int)[0]
-    )
-
-    build_item_selector(zzz_items_sorted)
+        build_item_selector(category_items_sorted)
