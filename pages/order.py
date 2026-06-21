@@ -21,32 +21,33 @@ discord_username = st.text_input("Your Discord username (required)", value = st.
 
 conn = st.connection("neon", type = "sql")
 
-user_details_df = conn.query("""
-    SELECT
-        hoyolab_id,
-        comment
-    FROM orders
-    WHERE discord_id = :discord_id;
-    """,
-    ttl = 0,
-    params = {
-        "discord_id": st.session_state["discord_id"]
-    }
-) if not st.session_state["hoyolab_id"] else pd.DataFrame()
+if st.session_state["hoyolab_id"] is None:
+    user_details_df = conn.query("""
+            SELECT
+                hoyolab_id,
+                comment
+            FROM orders
+            WHERE discord_id = :discord_id;
+        """,
+        ttl = 0,
+        params = {
+            "discord_id": st.session_state["discord_id"]
+        }
+    )
+
+    if not user_details_df.empty:
+        st.session_state["hoyolab_id"] = user_details_df.at[0, "hoyolab_id"]
+        st.session_state["comment"] = user_details_df.at[0, "comment"]
 
 hoyolab_id = st.text_input("Your HoYoLAB ID (required)", value = st.session_state["hoyolab_id"])
 
 if hoyolab_id:
     st.session_state["hoyolab_id"] = hoyolab_id
-elif not user_details_df.empty:
-    st.session_state["hoyolab_id"] = user_details_df.at[0, "hoyolab_id"]
 
 comment = st.text_area("Anything to add?", value = st.session_state["comment"])
 
 if comment:
     st.session_state["comment"] = comment
-elif not user_details_df.empty:
-    st.session_state["comment"] = user_details_df.at[0, "comment"]
 
 st.subheader("Wishlist")
 
