@@ -29,7 +29,7 @@ auth_url = (
     )
 )
 
-is_authenticating = True if "code" in st.query_params else False
+is_authenticating = "code" in st.query_params
 
 st.link_button("Authenticate with Discord", auth_url, type = "primary", icon = ":material/open_in_new:", disabled = is_authenticating)
 
