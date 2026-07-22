@@ -52,12 +52,6 @@ order = st.Page(
     icon = ":material/shopping_cart:"
 )
 
-delivery = st.Page(
-    "pages/delivery.py",
-    title = "Delivery Details",
-    icon = ":material/local_shipping:"
-)
-
 about = st.Page(
     "pages/about.py",
     title = "About this app",
@@ -89,7 +83,7 @@ if st.session_state["discord_id"]:
         {
             "Home": [home],
             "Authentication": [logout],
-            "Exchange": [inventory, order, delivery],
+            "Exchange": [inventory, order],
             "Information": [about]
         }
     )
