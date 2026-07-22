@@ -29,7 +29,7 @@ def build_item_selector(items: pd.DataFrame) -> None:
             st.image(Image.open(BytesIO(image_bytes)))
             
             st.markdown("\u3010%s\u3011%s" % (item["id"], item["name"]), text_alignment = "center")
-            st.markdown("**Price:** %s pts" % item["price"], text_alignment = "center")
+            st.markdown("**Price:** %s RP" % item["price"], text_alignment = "center")
             st.markdown("**Total stock:** %s" % item["stock"], help = "**%s** people interested" % item["interested_users"], text_alignment = "center")
 
             button_columns = st.columns(2)

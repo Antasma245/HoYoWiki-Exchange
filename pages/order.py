@@ -60,7 +60,7 @@ item_prices = [item["price"] for item in cart.values()]
 cart_display = {
     "ID": item_ids,
     "Name": item_names,
-    "Price (pts)": item_prices
+    "Price (RP)": item_prices
 }
 
 cart_display_df = pd.DataFrame(cart_display)
@@ -84,8 +84,8 @@ if hoyolab_id:
 
 total_cost = sum(item_prices)
 
-st.markdown("**Total cost:** %s pts" % total_cost)
-st.markdown("**Your points:** %s pts" % balance, help = "Reward pool points based on the provided HoYoLAB ID. If you think the value is not correct, please contact staff.")
+st.markdown("**Total cost:** %s RP" % total_cost)
+st.markdown("**Your points:** %s RP" % balance, help = "Reward Pool Points (RP) based on the provided HoYoLAB ID. If you think the value is not correct, please contact staff.")
 
 register_button_enabled = st.secrets.other["exchange_open"] and balance >= total_cost and hoyolab_id
 
