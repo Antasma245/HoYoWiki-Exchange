@@ -23,7 +23,7 @@ if "get_image_func" not in st.session_state:
 
 home = st.Page(
     "pages/home.py",
-    title = "HoYoWiki-Exchange",
+    title = "HSR-Exchange-α",
     icon = ":material/home:",
     default = True
 )

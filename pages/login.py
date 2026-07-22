@@ -10,9 +10,9 @@ st.markdown("In order to access the rest of the application, you first need to a
 with st.expander("How to Use"):
     st.markdown("""
     1. Click on the `Authenticate with Discord` button
-    2. When prompted, authorize **HoYoWiki-Exchange** to access your Discord username as well as see what servers you are in (to check if you are in the HoYoWiki collaborator server)
+    2. When prompted, authorize **HSR-Exchange** to access your Discord username as well as see what servers you are in (to check if you are in the HoYoWiki collaborator server)
     
-    **NB:** You will need to repeat this process every time you want to access the application. Additionally, you may freely deauthorize **HoYoWiki-Exchange** (under the `Authorized Apps` Discord settings) at any time without losing any data.
+    **NB:** You will need to repeat this process every time you want to access the application. Additionally, you may freely deauthorize **HSR-Exchange** (under the `Authorized Apps` Discord settings) at any time without losing any data.
     """)
 
 st.divider()
