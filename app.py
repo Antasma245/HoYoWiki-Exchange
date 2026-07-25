@@ -21,6 +21,12 @@ if "cart" not in st.session_state:
 if "get_image_func" not in st.session_state:
     st.session_state["get_image_func"] = get_gdrive_image
 
+st.logo(
+    "assets/hoyowiki_exchange_banner.png",
+    size = "large",
+    icon_image = "assets/hoyowiki_exchange_logo.png"    
+)
+
 home = st.Page(
     "pages/home.py",
     title = "HoYoWiki-Exchange",
